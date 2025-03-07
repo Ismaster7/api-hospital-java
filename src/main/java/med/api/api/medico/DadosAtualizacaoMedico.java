@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import med.api.api.endereco.DadosEndereco;
+import med.api.api.entities.Endereco;
+import med.api.api.entities.Medico;
 
 public record DadosAtualizacaoMedico(
         @NotNull
@@ -20,7 +22,10 @@ public record DadosAtualizacaoMedico(
 
         Especialidade especialidade,
 
-        DadosEndereco endereco
+        Endereco endereco
 ) {
+        public DadosAtualizacaoMedico (Medico medico){
+                this(medico.getId(), medico.getNome(), medico.getEmail(), medico.getTelefone(), medico.getCrm(), medico.getEspecialidade(), medico.getEndereco());
+        }
 
 }

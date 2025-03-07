@@ -6,12 +6,15 @@ import med.api.api.entities.Medico;
 import med.api.api.medico.DadosAtualizacaoMedico;
 import med.api.api.medico.DadosCadastroMedico;
 import med.api.api.medico.DadosListagemMedico;
+import med.api.api.medico.MedicoAtualizarDto;
 import med.api.api.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -23,9 +26,10 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
 
-        medicoRepository.save(new Medico(dados));
+        var medico = medicoRepository.save(new Medico(dados));
+        return ResponseEntity.ok().body(medico);
     }
 
     @GetMapping
@@ -35,11 +39,11 @@ public class MedicoController {
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados, UriComponentsBuilder uriComponentsBuilder){
         var medico = medicoRepository.getReferenceById(dados.id());
         medico.atualizarMedico(dados);
-
-
+        var uri = uriComponentsBuilder.path("/medicos/{id}").queryParam("id", dados.id()).build().toUri();
+       return ResponseEntity.created(uri).body(new DadosAtualizacaoMedico(medico));
     }
 
     @DeleteMapping("/{id}")
@@ -48,4 +52,12 @@ public class MedicoController {
         var medico = medicoRepository.getReferenceById(id);
         medico.setActive_status(false);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable Long id){
+        var medico = medicoRepository.getReferenceById(id);
+        return ResponseEntity.ok().body(new DadosAtualizacaoMedico(medico));
+    }
+
+
 }

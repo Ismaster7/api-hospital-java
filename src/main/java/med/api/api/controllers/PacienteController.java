@@ -7,9 +7,11 @@ import med.api.api.medico.DadosAtualizacaoPaciente;
 import med.api.api.medico.DadosCadastroPaciente;
 import med.api.api.medico.DadosListagemPaciente;
 import med.api.api.repository.PacienteRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,14 +25,17 @@ public class PacienteController {
     PacienteRepository pacienteRepository;
     @Transactional
     @PostMapping
-    public void postPacientes( @RequestBody @Valid DadosCadastroPaciente paciente){
+    public ResponseEntity postPacientes( @RequestBody @Valid DadosCadastroPaciente paciente){
         pacienteRepository.save(new Pacientes(paciente));
-        ;
+        ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
     }
     @GetMapping
-    public Page<DadosListagemPaciente> getPacientes(Pageable pageable)
+    public  ResponseEntity<Page<DadosListagemPaciente>>  getPacientes(Pageable pageable)
     {
-        return pacienteRepository.findAll(pageable).map(DadosListagemPaciente::new);
+        var page = pacienteRepository.findAll(pageable).map(DadosListagemPaciente::new);
+        return ResponseEntity.ok(page);
+
     }
 
     @GetMapping("/{id}")
@@ -41,16 +46,18 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void deleteById(@PathVariable(value="id") Long id) {
+    public ResponseEntity deleteById(@PathVariable(value="id") Long id) {
         var paciente = pacienteRepository.getReferenceById(id);
         paciente.setActive_status(false);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping
     @Transactional
-    public void updatePaciente(@RequestBody @Valid DadosAtualizacaoPaciente paciente){
+    public ResponseEntity updatePaciente(@RequestBody @Valid DadosAtualizacaoPaciente paciente){
         var pacienteAtua = pacienteRepository.getReferenceById(paciente.id());
         pacienteAtua.atualizarPaciente(paciente);
+        return ResponseEntity.ok(pacienteAtua);
 
     }
 

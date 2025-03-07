@@ -2,6 +2,7 @@ package med.api.api.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import med.api.api.endereco.DadosEndereco;
 import med.api.api.medico.DadosAtualizacaoMedico;
 import med.api.api.medico.DadosCadastroMedico;
 import med.api.api.medico.Especialidade;
@@ -46,7 +47,7 @@ public class Medico {
         if(dados.crm() != null) setCrm(dados.crm());
         if(dados.telefone() != null) setTelefone(dados.telefone());
         if(dados.especialidade() != null) setEspecialidade(dados.especialidade());
-        if(dados.endereco() != null) endereco.atualizarEndereco(dados.endereco());
+        if(dados.endereco() != null) endereco.atualizarEndereco(new DadosEndereco(dados.endereco()));
 
     }
 
