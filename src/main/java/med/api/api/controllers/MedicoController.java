@@ -3,10 +3,9 @@ package med.api.api.controllers;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.api.api.entities.Medico;
-import med.api.api.medico.DadosAtualizacaoMedico;
-import med.api.api.medico.DadosCadastroMedico;
-import med.api.api.medico.DadosListagemMedico;
-import med.api.api.medico.MedicoAtualizarDto;
+import med.api.api.domain.medico.DadosAtualizacaoMedico;
+import med.api.api.domain.medico.DadosCadastroMedico;
+import med.api.api.domain.medico.DadosListagemMedico;
 import med.api.api.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -50,7 +47,7 @@ public class MedicoController {
     @Transactional
     public void remove(@PathVariable Long id){
         var medico = medicoRepository.getReferenceById(id);
-        medico.setActive_status(false);
+        medico.setActiveStatus(false);
     }
 
     @GetMapping("/{id}")

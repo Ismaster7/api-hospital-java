@@ -1,4 +1,4 @@
-package med.api.api.medico;
+package med.api.api.domain.paciente;
 
 import med.api.api.entities.Pacientes;
 

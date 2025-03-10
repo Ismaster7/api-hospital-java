@@ -1,11 +1,10 @@
-package med.api.api.medico;
+package med.api.api.domain.medico;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import med.api.api.endereco.DadosEndereco;
+import med.api.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroMedico(
         @NotNull

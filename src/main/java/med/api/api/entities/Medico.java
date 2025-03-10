@@ -2,10 +2,10 @@ package med.api.api.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.api.api.endereco.DadosEndereco;
-import med.api.api.medico.DadosAtualizacaoMedico;
-import med.api.api.medico.DadosCadastroMedico;
-import med.api.api.medico.Especialidade;
+import med.api.api.domain.endereco.DadosEndereco;
+import med.api.api.domain.medico.DadosAtualizacaoMedico;
+import med.api.api.domain.medico.DadosCadastroMedico;
+import med.api.api.domain.medico.Especialidade;
 
 @Entity
 @Table(name = "medico")
@@ -27,7 +27,7 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
-    private Boolean active_status;
+    private Boolean activeStatus;
 
     public Medico(DadosCadastroMedico dados){
         this.nome = dados.nome();
@@ -37,7 +37,7 @@ public class Medico {
         this.especialidade = dados.especialidade();
 //        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(  dados.endereco());
-        this.active_status = true;
+        this.activeStatus = true;
 
     }
 

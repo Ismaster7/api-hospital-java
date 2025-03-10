@@ -3,18 +3,16 @@ package med.api.api.controllers;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.api.api.entities.Pacientes;
-import med.api.api.medico.DadosAtualizacaoPaciente;
-import med.api.api.medico.DadosCadastroPaciente;
-import med.api.api.medico.DadosListagemPaciente;
+import med.api.api.domain.paciente.DadosAtualizacaoPaciente;
+import med.api.api.domain.paciente.DadosCadastroPaciente;
+import med.api.api.domain.paciente.DadosListagemPaciente;
 import med.api.api.repository.PacienteRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController

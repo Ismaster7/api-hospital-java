@@ -3,8 +3,8 @@ package med.api.api.entities;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
-import med.api.api.medico.DadosCadastroPaciente;
-import med.api.api.medico.DadosAtualizacaoPaciente;
+import med.api.api.domain.paciente.DadosCadastroPaciente;
+import med.api.api.domain.paciente.DadosAtualizacaoPaciente;
 
 @Entity
 @Table(name="pacientes")

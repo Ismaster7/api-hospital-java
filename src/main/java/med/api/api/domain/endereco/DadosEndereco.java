@@ -1,4 +1,4 @@
-package med.api.api.endereco;
+package med.api.api.domain.endereco;
 
 import med.api.api.entities.Endereco;
 

@@ -2,7 +2,7 @@ package med.api.api.entities;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
-import med.api.api.endereco.DadosEndereco;
+import med.api.api.domain.endereco.DadosEndereco;
 
 @Getter
 @Setter
